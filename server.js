@@ -2,13 +2,40 @@
 var express = require("express");
 var app = express(); // create our app w/ express
 var mongoose = require("mongoose"); // mongoose for mongodb
+// var MongoClient = require("mongodb").MongoClient;
 var morgan = require("morgan"); // log requests to the console (express4)
 var bodyParser = require("body-parser"); // pull information from HTML POST (express4)
 var methodOverride = require("method-override"); // simulate DELETE and PUT (express4)
 var cors = require("cors");
 
 // Configuration
-mongoose.connect("mongodb://localhost/reviewking");
+// mongoose.connect(
+//   "mongodb://admin:password123@ds031193.mlab.com:31193/igrocer-backend",
+//   { useNewUrlParser: true }
+// );
+const port = process.env.PORT || 27017;
+
+mongoose.connect(
+  "mongodb://admin:password123@ds031193.mlab.com:31193/igrocer-backend",
+  { useNewUrlParser: true }
+);
+// mongoose.connect(
+//   "mongodb://localhost:27017",
+//   { useNewUrlParser: true }
+// );
+
+// mongoose.connect("mongodb://localhost/5000");
+
+// mongoose.Promise = require("bluebird");
+
+// MongoClient.connect(
+//   "mongodb://localhost:5000"
+//   // "mongodb://admin:password123@ds031193.mlab.com:31193/igrocer-backend"
+//   {
+//     useMongoClient: true
+//     /* other options */
+//   }
+// );
 
 app.use(morgan("dev")); // log every request to the console
 app.use(bodyParser.urlencoded({ extended: "true" })); // parse application/x-www-form-urlencoded
@@ -16,6 +43,8 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({ type: "application/vnd.api+json" })); // parse application/vnd.api+json as json
 app.use(methodOverride());
 app.use(cors());
+
+var router = express.Router();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -28,61 +57,85 @@ app.use(function(req, res, next) {
 });
 
 // Models
-var Review = mongoose.model("Review", {
-  title: String,
-  description: String,
-  rating: Number
-});
+// let Recipe = mongoose.model("Recipe", {
+//   title: String,
+//   instructions: [
+//     {
+//       text: String
+//     }
+//   ],
+
+//   ingredients: [
+//     {
+//       id: Number,
+//       item: String,
+//       price: Number
+//     }
+//   ]
+// });
 
 // Routes
 
-// Get reviews
-app.get("/api/reviews", function(req, res) {
-  console.log("fetching reviews");
+const createRecipeRouter = require("./routers/createRecipeRouter");
+const findRecipeRouter = require("./routers/findRecipesRouter");
 
-  // use mongoose to get all reviews in the database
-  Review.find(function(err, reviews) {
-    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-    if (err) res.send(err);
-
-    res.json(reviews); // return all reviews in JSON format
-  });
+app.get("/", function(req, res) {
+  res.send({ api: "up and at em" });
 });
 
-// create review and send back all reviews after creation
-app.post("/api/reviews", function(req, res) {
-  console.log("creating review");
+// Get recipes
 
-  // create a review, information comes from request from Ionic
-  Review.create(
+app.use("/api/", findRecipeRouter);
+
+// app.get("/api/recipes", function(req, res) {
+//   console.log("fetching recipes");
+
+//   // use mongoose to get all recipes in the database
+//   Recipe.find(function(err, recipes) {
+//     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+//     if (err) res.send(err);
+
+//     res.json(recipes); // return all recipes in JSON format
+//   });
+// });
+
+// create recipe and send back all recipes after creation
+
+app.use("/api/cr", createRecipeRouter);
+
+// app.post("/api/recipes", function(req, res) {
+//   console.log("creating recipe");
+
+//   // create a recipe, information comes from request from Ionic
+//   Recipe.create(
+//     {
+//       title: req.body.title,
+//       instructions: req.body.description,
+//       ingredients: req.body.ingredients,
+//       done: false
+//     },
+//     function(err, recipe) {
+//       if (err) res.send(err);
+
+//       // get and return all the recipes after you create another
+//       Recipe.find(function(err, recipes) {
+//         if (err) res.send(err);
+//         res.json(recipes);
+//       });
+//     }
+//   );
+// });
+
+// delete a recipe
+app.delete("/api/recipes/:recipe_id", function(req, res) {
+  Recipe.remove(
     {
-      title: req.body.title,
-      description: req.body.description,
-      rating: req.body.rating,
-      done: false
+      _id: req.params.recipe_id
     },
-    function(err, review) {
-      if (err) res.send(err);
-
-      // get and return all the reviews after you create another
-      Review.find(function(err, reviews) {
-        if (err) res.send(err);
-        res.json(reviews);
-      });
-    }
-  );
-});
-
-// delete a review
-app.delete("/api/reviews/:review_id", function(req, res) {
-  Review.remove(
-    {
-      _id: req.params.review_id
-    },
-    function(err, review) {}
+    function(err, recipe) {}
   );
 });
 
 // listen (start app with node server.js) ======================================
-app.listen(8080);
-console.log("App listening on port 8080");
+app.listen(port, () => console.log("API on port 5000"));
+// console.log("App listening on port 8080");
