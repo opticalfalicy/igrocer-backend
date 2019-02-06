@@ -22,7 +22,7 @@ https://github.com/swedishgoodbye/igrocer
 > 'api/'  
   
 ### POST New Recipe  
-> 'api/cr'  
+> 'api/cr'    
 > The JSON Format for registering a user is as follows:  
 > {  
 >  **"title":** _"title as string"_,  
