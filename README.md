@@ -1,6 +1,6 @@
 # igrocer-backend
 
-The server portion of a demo Ionic app for reciving and display recipes from an API.
+The server portion of a demo Ionic app for recieving and display recipes from an API.
 
 To fully test the current build, please follow this link and associated instructions:  
 https://github.com/swedishgoodbye/igrocer  
