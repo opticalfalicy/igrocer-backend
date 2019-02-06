@@ -6,7 +6,7 @@ var morgan = require("morgan"); // log requests to the console (express4)
 var bodyParser = require("body-parser"); // pull information from HTML POST (express4)
 var methodOverride = require("method-override"); // simulate DELETE and PUT (express4)
 var cors = require("cors");
-
+const Recipe = require("./Schemas/recipeSchema");
 // Configuration
 
 const port = process.env.PORT || 27017;
