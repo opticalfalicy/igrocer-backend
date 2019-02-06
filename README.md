@@ -23,6 +23,18 @@ https://github.com/swedishgoodbye/igrocer
   
 ### POST New Recipe  
 > 'api/cr'  
+> The JSON Format for registering a user is as follows:  
+> {  
+>  **"title":** _"title as string"_,  
+>  **"img":** _"img as string(html link to img)"_,
+>  **instructions:**:`[
+>                     **"text"**: "instructions here, works best by creating one object per instruction step
+>                   `]
+>   **"ingredients:**`[
+>                     **"item"**: "item as string",
+>                     **"price"**: "price as string"
+>                    `]
+> }
   
 ### DELETE Recipe
 > 'api/recipes/:recipe_id'
