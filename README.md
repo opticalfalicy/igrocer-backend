@@ -27,13 +27,13 @@ https://github.com/swedishgoodbye/igrocer
 > {  
 >  **"title":** _"title as string"_,  
 >  **"img":** _"img as string(html link to img)"_,
->  **instructions:**:`[
+>  **instructions:**:`[`
 >                     **"text"**: "instructions here, works best by creating one object per instruction step
->                   `]
->   **"ingredients:**`[
+>                   `]`
+>   **"ingredients:**`[`
 >                     **"item"**: "item as string",
 >                     **"price"**: "price as string"
->                    `]
+>                    `]`
 > }
   
 ### DELETE Recipe
