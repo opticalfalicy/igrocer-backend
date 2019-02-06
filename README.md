@@ -7,9 +7,22 @@ https://github.com/swedishgoodbye/igrocer
 **THIS APP IS IN DEVELOPMENT AND STABILITY IS NOT ENSURED**
 
 ## Prerequisite Software:  
-* [node.js](https://nodejs.org/en/) 
+> * [node.js](https://nodejs.org/en/) 
+> * [mongoDB](https://www.mongodb.com/)  
 
 
 ## Installation / Running App"
-* At root directory run 'yarn' or 'npm install'
-* Run 'ionic serve'
+> * At root directory run 'npm install'
+> * Run 'node server'  
+
+## API Routes:  
+* include 'localhost:27017/' on your request route before the following  
+  
+### GET Recipes
+> 'api/'  
+  
+### POST New Recipe  
+> 'api/cr'  
+  
+### DELETE Recipe
+> 'api/recipes/:recipe_id'
