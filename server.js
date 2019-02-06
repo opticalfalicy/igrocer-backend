@@ -15,14 +15,14 @@ var cors = require("cors");
 // );
 const port = process.env.PORT || 27017;
 
-mongoose.connect(
-  "mongodb://admin:password123@ds031193.mlab.com:31193/igrocer-backend",
-  { useNewUrlParser: true }
-);
 // mongoose.connect(
-//   "mongodb://localhost:27017",
+//   "mongodb://admin:password123@ds031193.mlab.com:31193/igrocer-backend",
 //   { useNewUrlParser: true }
 // );
+
+mongoose.connect("mongodb://localhost:27017/recipes", {
+  useNewUrlParser: true
+});
 
 // mongoose.connect("mongodb://localhost/5000");
 
@@ -137,5 +137,5 @@ app.delete("/api/recipes/:recipe_id", function(req, res) {
 });
 
 // listen (start app with node server.js) ======================================
-app.listen(port, () => console.log("API on port 5000"));
+app.listen(port, () => console.log(`API on port ${port}`));
 // console.log("App listening on port 8080");
